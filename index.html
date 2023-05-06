@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+    
+
+    <section class="calc">
+        <div class="calcHeader">
+            <div class="header__row">
+                <div class="header__cell">
+                    <select name="" id="" class="header__type">
+                        <option value="steel">Сталь</option>
+                        <option value="plastic">Пластик</option>
+                    </select>
+                </div>
+                <div class="header__row">
+                    <select name="" id="" class="header__dn">
+
+                    </select>
+                    <input type="text" class="header__du" placeholder="ДУ трубы">
+                    <select class="header__thickness">
+                    </select>
+                    <input type="text" placeholder="Длинна трубы" class="header__len">
+                    <button class="header__add">Рассчитать</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="calcTable">
+                <table class="itemsTable__table" cellspacing="0" cellpadding="5" bordercolor="#ccc" border="1">
+                <thead>
+                <tr>
+                    <th>Тип трубы</th>
+                    <th>DN трубы (мм)</th>
+                    <th>Толщина изоляции (мм)</th>
+                    <th>Длинна трубы (м)</th>
+                    <th>Кол-во Клея (л)</th>
+                    <th>Кол-во Очистителя (л)</th>
+                    <th>Лента продольная (м)</th>
+                    <th>Лента поперечная (м)</th>
+                    <th>Кол-во покрытия (м2)</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                </table>
+        </div>
+        <div class="calcResults">
+            <div class="calcResults__item amountGlue">
+                <div class="calcResults__caption">
+                    Количество клея
+                </div>
+                <div class="calcResults__res">
+                    <span class="calcResults__value"></span>
+                    <span class="calcResults__unit">литров</span>
+                </div>
+            </div>
+            <div class="calcResults__item amountCleaner">
+                <div class="calcResults__caption">
+                    Количество очистителя
+                </div>
+                <div class="calcResults__res">
+                    <span class="calcResults__value"></span>
+                    <span class="calcResults__unit">литров</span>
+                </div>
+            </div>
+            <div class="calcResults__item amountTapeLongitudinal">
+                <div class="calcResults__caption">
+                    Количество ленты для продольных швов
+                </div>
+                <div class="calcResults__res">
+                    <span class="calcResults__value"></span>
+                    <span class="calcResults__unit">метров</span>
+                </div>
+            </div>
+            <div class="calcResults__item amountTapeCross">
+                <div class="calcResults__caption">
+                    Количество ленты для поперечных швов
+                </div>
+                <div class="calcResults__res">
+                    <span class="calcResults__value"></span>
+                    <span class="calcResults__unit">метров</span>
+                </div>
+            </div>
+            <div class="calcResults__item amountSelfAdhesive">
+                <div class="calcResults__caption">
+                    Количество покрытия самоклеющегося
+                </div>
+                <div class="calcResults__res">
+                    <span class="calcResults__value"></span>
+                    <span class="calcResults__unit">м2</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </div>
+    <script src="./main.js"></script>
+</body>
+</html>

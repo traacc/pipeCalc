@@ -5,6 +5,7 @@ const dn = calc.querySelector('.header__dn');
 const du = calc.querySelector('.header__du');
 const thickness = calc.querySelector('.header__thickness');
 const len = calc.querySelector('.header__len');
+const outInch = calc.querySelector('.header__outInch');
 
 const itemsTable = document.querySelector('.itemsTable__table');
 const addBtn = document.querySelector('.header__add');
@@ -21,9 +22,12 @@ let itemsPosition = [];
 
 addBtn.addEventListener('click',()=>{
     tableId++;
+    
     let dnv = Number(dn.value);
     let tv = Number(thickness.value);
     let lnv = Number(len.value);
+    if(!dnv||!tv||!lnv)
+        return;
     itemsPosition.push({
         id: tableId,
         metalType: metalType.value,
@@ -47,7 +51,7 @@ addBtn.addEventListener('click',()=>{
     row.insertCell().innerHTML = calcAmountTapeLongitudinal(dnv, tv, lnv).toFixed(2);
     row.insertCell().innerHTML = calcAmountTapeCross(dnv, tv, lnv).toFixed(2);
     row.insertCell().innerHTML = calcAmountSelfAdhesive(dnv, tv, lnv).toFixed(2);
-    row.insertCell().innerHTML = `<a class="itemsTable__removeRow" href="javascript:void(0);">×</a>`;
+    row.insertCell().innerHTML = `<a class="itemsTable__removeRow" href="javascript:void(0);"></a>`;
 
     //console.log(row);
     let tId = tableId;
@@ -62,8 +66,8 @@ addBtn.addEventListener('click',()=>{
 });
 
 
-function generateItems(itemObj){
-    let html = '';
+function generateItems(itemObj, placeholder){
+    let html = `<option value="" disabled selected>${placeholder}</option>`;
     for(let [index, item] of itemObj.entries()) {
         html += `<option value="${item}">${item}</option>`
     }
@@ -72,7 +76,86 @@ function generateItems(itemObj){
 
 
 const dnTable = { steel: [10.2,12,13.5,15,17.2,20,21.3,25,26.8,30,33.5,38,42.3,48,54,57,60.3,63.5,70,76,80,88.9,101.3,108,114,125,133,139,159,170],
-                  plastic: [10,12,16,20,25,32,40,50,63,75,90,110,125,140,160]
+                  plastic: [10,12,16,20,25,32,40,50,63,75,90,110,125,140,160],
+                  cu: [6.4,8.5,9.5,12.7,15.9,19.1,20.3,22.3,25.4,28.6,30,34.9,41.3,47.6,54,57.2,60.3,63.5,70,76.2,80,88.9,108.8,114.3,]
+}
+const duTable = {
+    steel: {
+        10.2:6,
+        12: 6,
+        13.5: 8,
+        15: 11,
+        17.2:10,
+        20: 15,
+        21.3: 15,
+        25:18,
+        26.8:20,
+        30:25,
+        33.5:25,
+        38:30,
+        42.3:32,
+        48:40,
+        54:50,
+        57:50,
+        60.3:50,
+        63.5:50,
+        70:65,
+        76:65,
+        80:65,
+        88.9:80,
+        101.3:90,
+        108:100,
+        114:100,
+        125:100,
+        133:125,
+        139:125,
+        159:150,
+        170:163
+        },
+    plastic: {
+        10: "",
+        12: "",
+        16: "", 
+        20: "",
+        25: "",
+        32: "",
+        40: "",
+        50: "",
+        63: "",
+        75: "",
+        90: "",
+        110: "",
+        125: "",
+        140: "",
+        160: "",
+    },
+    cu: {
+        6.4: 4,
+        8.5: 6,
+        9.5: 8,
+        12.7: 10,
+        15.9: 13,
+        19.1: 15,
+        20.3: 15,
+        22.3: 20,
+        25.4: 23,
+        28.6: 25,
+        30: 28,
+        34.9: 32,
+        41.3: 40,
+        47.6: 40,
+        54: 50,
+        57.2: 50,
+        60.3: '',
+        63.5: 60,
+        70: 62.4,
+        76.2: 65,    
+        80: 74.3,
+        88.9: 80,
+        108.8: 100,
+        114.3: 100,
+
+    }
 }
 const thicknessTable = {
     steel : {
@@ -125,30 +208,60 @@ const thicknessTable = {
         160: [9,13,19,25,32,40,50],
     },
     cu: {
-        '1/4"': [6,9,13],
-        '3/8"': [6,9,13,19],
-        '1/2"': [6,9,13,19],
-        '5/8"': [6,9,13,19],
-        '3/4"': [6,9],
-        '7/8"': [6,9,13,19,25,32,40,50],
-        '1"': [6,9,13,19,25],
-        '1 1/8"': [6,9,13,19,25,32,40,50],
-        '1 1/4': [6,9,13,19,25,32,40,50],
-        '1 3/8"': [6,9,13,19,25,32,40,50],
-        '1 5/8"': [6,9,13,19,25,32,40,50],
-        '1 7/8': [9,13,19,25,32,40,50],
-        '2 1/8"': [9,13,19,25,32],
-        '2 1/4': [9,13,19,25,32,40,50],
-        '2 3/8': [9,13,19,25,32,40,50],
-        '2 1/2': [9,13,19,25,32],
-        '2 3/4': [9,13,19,25,32,40,50],
-        '3': [9,13,19,25,32,40,50],    
-        '3 1/8"': [9,13,19,25,32,40,50],
-        '3 1/2': [9,13,19,25,32,40,50],
-        '4 1/4': [9,13,19,25,32,40,50],
-        '4 1/2': [9,13,19,25,32,40,50],
+        6.4: [6,9,13],
+        8.5: [6,9],
+        9.5: [6,9,13,19],
+        12.7: [6,9,13,19],
+        15.9: [6,9,13,19],
+        19.1: [6,9],
+        20.3: [6,9],
+        22.3: [6,9,13,19,25,32,40,50],
+        25.4: [6,9,13,19,25],
+        28.6: [6,9,13,19,25,32,40,50],
+        30: [6,9,13,19,25,32,40,50],
+        34.9: [6,9,13,19,25,32,40,50],
+        41.3: [6,9,13,19,25,32,40,50],
+        47.6: [9,13,19,25,32,40,50],
+        54: [9,13,19,25,32],
+        57.2: [9,13,19,25,32,40,50],
+        60.3: [9,13,19,25,32,40,50],
+        63.5: [9,13,19,25,32],
+        70: [9,13,19,25,32,40,50],
+        76.2: [9,13,19,25,32,40,50],    
+        80: [9,13,19,25,32,40,50],
+        88.9: [9,13,19,25,32,40,50],
+        108.8: [9,13,19,25,32,40,50],
+        114.3: [9,13,19,25,32,40,50],
 
     },
+}
+
+const outInchTable = {
+    6.4: '1/4"',
+    8.5: '',
+    9.5: '3/8"',
+    12.7: '1/2"',
+    15.9: '5/8"',
+    19.1: '3/4"',
+    20.3: '',
+    22.3: '7/8"',
+    25.4: '1"',
+    28.6: '1 1/8"',
+    30: '1 1/4',
+    34.9: '1 3/8"',
+    41.3: '1 5/8"',
+    47.6: '1 7/8',
+    54: '2 1/8"',
+    57.2: '2 1/4',
+    60.3: '2 3/8',
+    63.5: '2 1/2',
+    70: '2 3/4',
+    76.2: '3',    
+    80: '3 1/8"',
+    88.9: '3 1/2',
+    108.8: '4 1/4',
+    114.3: '4 1/2',
+
 }
 
 function calcAreaGluedSurface (dn, thickness, len) {
@@ -160,7 +273,7 @@ function calcAmountGlue (dn, thickness, len) {
 }
 
 function calcAmountCleaner (dn, thickness, len) {
-    return 0;
+    return calcAmountGlue(dn, thickness, len)*0.3;
 }
 
 function calcCirLen (dn, thickness) {
@@ -180,7 +293,10 @@ function calcAmountSelfAdhesive (dn, thickness, len) {
 }
 
 function changeThickness() {
-    thickness.innerHTML = generateItems(thicknessTable[metalType.value][dn.value]);
+    if(!metalType.value||!dn.value)
+        return;
+    thickness.innerHTML = generateItems(thicknessTable[metalType.value][dn.value], "Толщина изоляции в мм");
+
 }
 
 function getColumnSum(column) {
@@ -195,17 +311,39 @@ function updateResults() {
     amountSelfAdhesiveTotals.textContent = getColumnSum("amountSelfAdhesive").toFixed(2);
 }
 function changeType() {
-    console.log(dnTable[metalType.value]);
-    dn.innerHTML = generateItems(dnTable[metalType.value]);
+    //console.log(dnTable[metalType.value]);
+    dn.innerHTML = generateItems(dnTable[metalType.value], "DN трубы");
+    if(metalType.value=='cu') {
+        outInch.classList.remove('hide');
+    } else {
+        outInch.classList.add('hide');
+    }
+}
+function updateDu() {
+    if(!metalType.value||!dn.value)
+        return;
+    du.value = duTable[metalType.value][dn.value];
+}
+function updateOutInch() {
+    if(!metalType.value||!dn.value)
+        return;
+    if(metalType.value=='cu') {
+        outInch.value = outInchTable[dn.value];
+    }
 }
 dn.addEventListener('change', ()=>{
     changeThickness();
+    updateDu();
+    updateOutInch();
 })
 metalType.addEventListener('change', ()=>{
     changeType();
     changeThickness();
+    updateDu();
+    updateOutInch();
 })
 document.addEventListener("DOMContentLoaded",()=>{
     changeType();
     changeThickness();
+    updateOutInch();
 });

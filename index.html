@@ -13,42 +13,48 @@
     
 
     <section class="calc">
+        <h3>Укажите параметры для расчета</h3>
         <div class="calcHeader">
             <div class="header__row">
                 <div class="header__cell">
                     <select name="" id="" class="header__type">
+                        <option value="" disabled selected>Тип трубы</option>
                         <option value="steel">Сталь</option>
                         <option value="plastic">Пластик</option>
+                        <option value="cu">Медь</option>
                     </select>
                 </div>
-                <div class="header__row">
-                    <select name="" id="" class="header__dn">
 
-                    </select>
-                    <input type="text" class="header__du" placeholder="ДУ трубы">
-                    <select class="header__thickness">
-                    </select>
-                    <input type="text" placeholder="Длинна трубы" class="header__len">
-                    <button class="header__add">Рассчитать</button>
-                </div>
 
+            </div>
+            <div class="header__row">
+                <select name="" id="" class="header__dn">
+                    <option value="" disabled selected>DN трубы</option>
+                </select>
+                <input type="text" class="header__outInch hide" disabled placeholder="Наружный дюйм">
+                <input type="text" class="header__du" disabled placeholder="ДУ трубы">
+                <select class="header__thickness">
+                    <option value="" disabled selected>Толщина изоляции в мм</option>
+                </select>
+                <input type="text" placeholder="Длинна трубы" class="header__len">
+                <button class="header__add">Рассчитать</button>
             </div>
         </div>
 
         <div class="calcTable">
                 <table class="itemsTable__table" cellspacing="0" cellpadding="5" bordercolor="#ccc" border="1">
                 <thead>
-                <tr>
+                <tr class="itemsTable">
                     <th>Тип трубы</th>
-                    <th>DN трубы (мм)</th>
-                    <th>Толщина изоляции (мм)</th>
-                    <th>Длинна трубы (м)</th>
-                    <th>Кол-во Клея (л)</th>
-                    <th>Кол-во Очистителя (л)</th>
-                    <th>Лента продольная (м)</th>
-                    <th>Лента поперечная (м)</th>
-                    <th>Кол-во покрытия (м2)</th>
-                    <th></th>
+                    <th>DN трубы&nbsp;(мм)</th>
+                    <th>Толщина изоляции&nbsp;(мм)</th>
+                    <th>Длинна трубы&nbsp;(м)</th>
+                    <th>Кол-во Клея&nbsp;(л)</th>
+                    <th>Кол-во Очистителя&nbsp;(л)</th>
+                    <th>Лента продольная&nbsp;(м)</th>
+                    <th>Лента поперечная&nbsp;(м)</th>
+                    <th>Кол-во покрытия&nbsp;(м2)</th>
+                    <th>     </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,13 +62,15 @@
                 </tbody>
                 </table>
         </div>
+        <h3>Итого вам понадобиться:</h3>
         <div class="calcResults">
+            
             <div class="calcResults__item amountGlue">
                 <div class="calcResults__caption">
                     Количество клея
                 </div>
                 <div class="calcResults__res">
-                    <span class="calcResults__value"></span>
+                    <span class="calcResults__value">0</span>
                     <span class="calcResults__unit">литров</span>
                 </div>
             </div>
@@ -71,25 +79,25 @@
                     Количество очистителя
                 </div>
                 <div class="calcResults__res">
-                    <span class="calcResults__value"></span>
+                    <span class="calcResults__value">0</span>
                     <span class="calcResults__unit">литров</span>
                 </div>
             </div>
             <div class="calcResults__item amountTapeLongitudinal">
                 <div class="calcResults__caption">
-                    Количество ленты для продольных швов
+                    Количество ленты для продольных&nbsp;швов
                 </div>
                 <div class="calcResults__res">
-                    <span class="calcResults__value"></span>
+                    <span class="calcResults__value">0</span>
                     <span class="calcResults__unit">метров</span>
                 </div>
             </div>
             <div class="calcResults__item amountTapeCross">
                 <div class="calcResults__caption">
-                    Количество ленты для поперечных швов
+                    Количество ленты для поперечных&nbsp;швов
                 </div>
                 <div class="calcResults__res">
-                    <span class="calcResults__value"></span>
+                    <span class="calcResults__value">0</span>
                     <span class="calcResults__unit">метров</span>
                 </div>
             </div>
@@ -98,8 +106,8 @@
                     Количество покрытия самоклеющегося
                 </div>
                 <div class="calcResults__res">
-                    <span class="calcResults__value"></span>
-                    <span class="calcResults__unit">м2</span>
+                    <span class="calcResults__value">0</span>
+                    <span class="calcResults__unit">м<sup>2</sup></span>
                 </div>
             </div>
         </div>

@@ -9,17 +9,35 @@
 </head>
 <body>
     <div class="container">
+        <header class="header">
+            <div class="header__logo">
+                <img src="./imgs/logo.svg" alt="">
+            </div>
+            <div class="header__controls">
+                <button class="header__help btn">Помощь с расчетом</button>
+                <button class="header__goToSite opBtn">Перейти на сайт</button>
+            </div>
+            <div class="header__contacts">
+                <div class="header__phone">+7 (000) 000-00-00</div>
+                <div class="header__email">info@k-flex-kazan.ru</div>
+            </div>
+        </header>
+        <div class="header__bottom">
+            <h2>Расчет аксессуаров для трубок K-FLEX</h2>
+            <button class="opBtn returnBtn">Вернуться</button>
+        </div>
+    <main class="main">
 
     
     <div class="leftBlock">
 
-    
+
     <section class="calc">
         <h3>Укажите параметры для расчета</h3>
         <div class="calcHeader">
-            <div class="header__row">
-                <div class="header__cell">
-                    <select required name="" id="" class="header__type">
+            <div class="calcHeader__row">
+                <div class="calcHeader__cell">
+                    <select required name="" id="" class="calcHeader__type">
                         <option value="" disabled selected>Тип трубы</option>
                         <option value="steel">Сталь</option>
                         <option value="plastic">Пластик</option>
@@ -29,17 +47,17 @@
 
 
             </div>
-            <div class="header__row">
-                <select  required name="" id="" class="header__dn">
+            <div class="calcHeader__row">
+                <select  required name="" id="" class="calcHeader__dn">
                     <option value="" disabled selected>DN трубы</option>
                 </select>
-                <input type="text" class="header__outInch hide" disabled placeholder="Наружный дюйм">
-                <input type="text" class="header__du" disabled placeholder="ДУ трубы">
-                <select  required class="header__thickness">
+                <input type="text" class="calcHeader__outInch hide" disabled placeholder="Наружный дюйм">
+                <input type="text" class="calcHeader__du" disabled placeholder="ДУ трубы">
+                <select  required class="calcHeader__thickness">
                     <option value="" disabled selected>Толщина изоляции в мм</option>
                 </select>
-                <input  required type="text" placeholder="Длинна трубы" class="header__len">
-                <button class="header__add btn">Рассчитать</button>
+                <input  required type="text" placeholder="Длинна трубы" class="calcHeader__len">
+                <button class="calcHeader__add btn">Рассчитать</button>
             </div>
         </div>
 
@@ -137,7 +155,7 @@
             <button class="btn cheaperForm__btn">Снизить цену</button>
         </div>
     </aside>
-    
+</main>
 
     <script src="font.js"></script>
     <script src="jspdf.umd.min.js"></script>

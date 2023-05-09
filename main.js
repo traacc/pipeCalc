@@ -1,14 +1,14 @@
 const calc = document.body.querySelector('.calc');
-const metalType = calc.querySelector('.header__type');
+const metalType = calc.querySelector('.calcHeader__type');
 
-const dn = calc.querySelector('.header__dn');
-const du = calc.querySelector('.header__du');
-const thickness = calc.querySelector('.header__thickness');
-const len = calc.querySelector('.header__len');
-const outInch = calc.querySelector('.header__outInch');
+const dn = calc.querySelector('.calcHeader__dn');
+const du = calc.querySelector('.calcHeader__du');
+const thickness = calc.querySelector('.calcHeader__thickness');
+const len = calc.querySelector('.calcHeader__len');
+const outInch = calc.querySelector('.calcHeader__outInch');
 
 const itemsTable = document.querySelector('.itemsTable__table');
-const addBtn = document.querySelector('.header__add');
+const addBtn = document.querySelector('.calcHeader__add');
 
 const amountGlueTotals = calc.querySelector('.amountGlue .calcResults__value');
 const amountCleanerTotals = calc.querySelector('.amountCleaner .calcResults__value');

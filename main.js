@@ -365,14 +365,14 @@ function headerTable(h) {
     pdfDoc.setFont("FuturaPT-Medium");
     pdfDoc.text(5, h, "Тип трубы");
 
-    pdfDoc.text(25, h, "DN трубы (мм)", {maxWidth:'15'});
-    pdfDoc.text(45, h, "Толщина изоляции (мм)", {maxWidth:'25'});
+    pdfDoc.text(25, h, "DN трубы (мм)", {maxWidth:'12'});
+    pdfDoc.text(45, h, "Толщина изоляции (мм)", {maxWidth:'20'});
     pdfDoc.text(70, h, "Длинна трубы (м)", {maxWidth:'15'});
-    pdfDoc.text(90, h, "Кол-во Клея (л)", {maxWidth:'15'});
-    pdfDoc.text(110, h, "Кол-во Очистителя (л)", {maxWidth:'23'});
-    pdfDoc.text(135, h, "Лента продольная (м)", {maxWidth:'23'});
-    pdfDoc.text(160, h, "Лента поперечная (м)", {maxWidth:'23'});
-    pdfDoc.text(185, h, "Кол-во покрытия (м²)", {maxWidth:'23'});
+    pdfDoc.text(90, h, "Кол-во клея (л)", {maxWidth:'13'});
+    pdfDoc.text(110, h, "Кол-во очистителя (л)", {maxWidth:'20'});
+    pdfDoc.text(135, h, "Лента продольная (м)", {maxWidth:'20'});
+    pdfDoc.text(160, h, "Лента поперечная (м)", {maxWidth:'20'});
+    pdfDoc.text(185, h, "Кол-во покрытия (м²)", {maxWidth:'17'});
     pdfDoc.setFont("FuturaPT-Book");
 }
 

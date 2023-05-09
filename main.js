@@ -20,6 +20,8 @@ const amountSelfAdhesiveTotals = calc.querySelector('.amountSelfAdhesive .calcRe
 let tableId = 0;
 let itemsPosition = [];
 
+const { jsPDF } = window.jspdf;
+
 addBtn.addEventListener('click',()=>{
     tableId++;
     
@@ -342,8 +344,97 @@ metalType.addEventListener('change', ()=>{
     updateDu();
     updateOutInch();
 })
+
+let pdfDoc = new jsPDF();
+
+function headerPdf() {
+
+}
+
+function headerTable(h) {
+    h+=8;
+    pdfDoc.setFont("FuturaPT-Medium");
+    pdfDoc.text(5, h, "Тип трубы");
+
+    pdfDoc.text(25, h, "DN трубы (мм)", {maxWidth:'15'});
+    pdfDoc.text(45, h, "Толщина изоляции (мм)", {maxWidth:'25'});
+    pdfDoc.text(70, h, "Длинна трубы (м)", {maxWidth:'15'});
+    pdfDoc.text(90, h, "Кол-во Клея (л)", {maxWidth:'15'});
+    pdfDoc.text(110, h, "Кол-во Очистителя (л)", {maxWidth:'23'});
+    pdfDoc.text(135, h, "Лента продольная (м)", {maxWidth:'23'});
+    pdfDoc.text(160, h, "Лента поперечная (м)", {maxWidth:'23'});
+    pdfDoc.text(185, h, "Кол-во покрытия (м2)", {maxWidth:'23'});
+    pdfDoc.setFont("FuturaPT-Book");
+}
+
+function rowPdf(el,h) {
+
+    const metalStrings = {'steel': 'Сталь', 'plastic':'Пластик', 'cu':'Медь'}
+
+    h+=8;
+    pdfDoc.setFont("FuturaPT-Medium");
+    pdfDoc.text(5, h, metalStrings[el.metalType]);
+    pdfDoc.setFont("FuturaPT-Book");
+    pdfDoc.text(25, h, String(el.dn));
+    pdfDoc.text(45, h, el.thickness);
+    pdfDoc.text(70, h, el.len);
+    pdfDoc.text(90, h, el.amountGlue.toFixed(2));
+    pdfDoc.text(110, h, el.amountCleaner.toFixed(2));
+    pdfDoc.text(135, h, el.amountTapeLongitudinal.toFixed(2));
+    pdfDoc.text(160, h, el.amountTapeCross.toFixed(2));
+    pdfDoc.text(185, h, el.amountSelfAdhesive.toFixed(2));
+    
+    
+}
+
+function totalPdf(caption, value, unit, h) {
+    pdfDoc.setFont("FuturaPT-Medium");
+    pdfDoc.text(5, h, String(caption));
+    pdfDoc.setFont("FuturaPT-Book");
+    pdfDoc.text(5, h+5, value + " " + unit);
+}
+
+function generatePdf() {
+    
+    pdfDoc.addFileToVFS('FuturaPT-Book-normal.ttf', font);
+    pdfDoc.addFont('FuturaPT-Book-normal.ttf', 'FuturaPT-Book', 'normal');
+
+    pdfDoc.addFileToVFS('FuturaPT-Medium-normal.ttf', fontMed);
+    pdfDoc.addFont('FuturaPT-Medium-normal.ttf', 'FuturaPT-Medium', 'normal');
+    pdfDoc.setFont("FuturaPT-Book");
+
+    pdfDoc.setFontSize(14);
+
+    headerPdf();
+
+    pdfDoc.setFontSize(8);
+
+    let i = 0;
+
+    headerTable(10);
+    for(i=0; i<itemsPosition.length; i++){
+        rowPdf(itemsPosition[i],20+i*17);
+    }
+
+    totalPdf("Количество клея", getColumnSum("amountGlue").toFixed(2), " литров", 40 + itemsPosition.length*17);
+    totalPdf("Количество очистителя", getColumnSum("amountCleaner").toFixed(2), " литров", 50 + itemsPosition.length*17);
+    totalPdf("Количество ленты для продольных швов", getColumnSum("amountTapeLongitudinal").toFixed(2), " метров", 60 + itemsPosition.length*17);
+    totalPdf("Количество ленты для поперечных швов", getColumnSum("amountTapeCross").toFixed(2), " метров", 70 + itemsPosition.length*17);
+    totalPdf("Количество покрытия самоклеющегося", getColumnSum("amountSelfAdhesive").toFixed(2), " м2", 80 + itemsPosition.length*17);
+    //pdfDoc.text(160, 100+i*17, "Итого: " + document.querySelector('.products__total .num').textContent + "руб.") ;
+
+
+    pdfDoc.save('output.pdf');
+}
+
+/* END PDF Generator */
+document.querySelector('.calcGeneratePdf').addEventListener('click',()=>{
+    generatePdf();
+});
+
 document.addEventListener("DOMContentLoaded",()=>{
-    changeType();
+    if(metalType.value) 
+        changeType();
     changeThickness();
     updateOutInch();
 });

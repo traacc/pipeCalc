@@ -19,7 +19,7 @@
         <div class="calcHeader">
             <div class="header__row">
                 <div class="header__cell">
-                    <select name="" id="" class="header__type">
+                    <select required name="" id="" class="header__type">
                         <option value="" disabled selected>Тип трубы</option>
                         <option value="steel">Сталь</option>
                         <option value="plastic">Пластик</option>
@@ -30,15 +30,15 @@
 
             </div>
             <div class="header__row">
-                <select name="" id="" class="header__dn">
+                <select  required name="" id="" class="header__dn">
                     <option value="" disabled selected>DN трубы</option>
                 </select>
                 <input type="text" class="header__outInch hide" disabled placeholder="Наружный дюйм">
                 <input type="text" class="header__du" disabled placeholder="ДУ трубы">
-                <select class="header__thickness">
+                <select  required class="header__thickness">
                     <option value="" disabled selected>Толщина изоляции в мм</option>
                 </select>
-                <input type="text" placeholder="Длинна трубы" class="header__len">
+                <input  required type="text" placeholder="Длинна трубы" class="header__len">
                 <button class="header__add btn">Рассчитать</button>
             </div>
         </div>

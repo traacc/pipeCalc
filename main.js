@@ -28,6 +28,15 @@ addBtn.addEventListener('click',()=>{
     let dnv = Number(dn.value);
     let tv = Number(thickness.value);
     let lnv = Number(len.value);
+
+    
+    
+   
+    len.reportValidity();
+    thickness.reportValidity();
+    dn.reportValidity();
+    metalType.reportValidity();
+
     if(!dnv||!tv||!lnv)
         return;
     itemsPosition.push({
@@ -363,7 +372,7 @@ function headerTable(h) {
     pdfDoc.text(110, h, "Кол-во Очистителя (л)", {maxWidth:'23'});
     pdfDoc.text(135, h, "Лента продольная (м)", {maxWidth:'23'});
     pdfDoc.text(160, h, "Лента поперечная (м)", {maxWidth:'23'});
-    pdfDoc.text(185, h, "Кол-во покрытия (м2)", {maxWidth:'23'});
+    pdfDoc.text(185, h, "Кол-во покрытия (м²)", {maxWidth:'23'});
     pdfDoc.setFont("FuturaPT-Book");
 }
 
@@ -420,7 +429,7 @@ function generatePdf() {
     totalPdf("Количество очистителя", getColumnSum("amountCleaner").toFixed(2), " литров", 50 + itemsPosition.length*17);
     totalPdf("Количество ленты для продольных швов", getColumnSum("amountTapeLongitudinal").toFixed(2), " метров", 60 + itemsPosition.length*17);
     totalPdf("Количество ленты для поперечных швов", getColumnSum("amountTapeCross").toFixed(2), " метров", 70 + itemsPosition.length*17);
-    totalPdf("Количество покрытия самоклеющегося", getColumnSum("amountSelfAdhesive").toFixed(2), " м2", 80 + itemsPosition.length*17);
+    totalPdf("Количество покрытия самоклеющегося", getColumnSum("amountSelfAdhesive").toFixed(2), " м²", 80 + itemsPosition.length*17);
     //pdfDoc.text(160, 100+i*17, "Итого: " + document.querySelector('.products__total .num').textContent + "руб.") ;
 
 

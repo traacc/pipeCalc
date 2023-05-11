@@ -333,6 +333,7 @@ function changeType() {
     dn.value="";
     du.value="";
     outInch.value="";
+    thickness.value="";
     len.value="";
 }
 function updateDu() {

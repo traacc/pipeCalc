@@ -220,12 +220,10 @@ const thicknessTable = {
     },
     cu: {
         6.4: [6,9,13],
-        8.5: [6,9],
         9.5: [6,9,13,19],
         12.7: [6,9,13,19],
         15.9: [6,9,13,19],
         19.1: [6,9],
-        20.3: [6,9],
         22.3: [6,9,13,19,25,32,40,50],
         25.4: [6,9,13,19,25],
         28.6: [6,9,13,19,25,32,40,50],
@@ -248,30 +246,28 @@ const thicknessTable = {
 }
 
 const outInchTable = {
-    6.4: '1/4"',
-    8.5: '',
-    9.5: '3/8"',
-    12.7: '1/2"',
-    15.9: '5/8"',
-    19.1: '3/4"',
-    20.3: '',
-    22.3: '7/8"',
-    25.4: '1"',
-    28.6: '1 1/8"',
-    30: '1 1/4',
-    34.9: '1 3/8"',
-    41.3: '1 5/8"',
-    47.6: '1 7/8',
-    54: '2 1/8"',
-    57.2: '2 1/4',
-    60.3: '2 3/8',
-    63.5: '2 1/2',
-    70: '2 3/4',
-    76.2: '3',    
-    80: '3 1/8"',
-    88.9: '3 1/2',
-    108.8: '4 1/4',
-    114.3: '4 1/2',
+    6.4: '1/4\"',
+    9.5: '3/8\"',
+    12.7: '1/2\"',
+    15.9: '5/8\"',
+    19.1: '3/4\"',
+    22.3: '7/8\"',
+    25.4: '1\"',
+    28.6: '1 1/8\"',
+    30: '1 1/4\"',
+    34.9: '1 3/8\"',
+    41.3: '1 5/8\"',
+    47.6: '1 7/8\"',
+    54: '2 1/8\"',
+    57.2: '2 1/4\"',
+    60.3: '2 3/8\"',
+    63.5: '2 1/2\"',
+    70: '2 3/4\"',
+    76.2: '3\"',    
+    80: '3 1/8\"',
+    88.9: '3 1/2\"',
+    108.8: '4 1/4\"',
+    114.3: '4 1/2\"',
 
 }
 
@@ -329,6 +325,17 @@ function changeType() {
     } else {
         outInch.classList.add('hide');
     }
+
+    if(metalType.value=='plastic') {
+        du.classList.add('hide');
+    } else {
+        du.classList.remove('hide');
+    }
+
+    dn.value="";
+    du.value="";
+    outInch.value="";
+    len.value="";
 }
 function updateDu() {
     if(!metalType.value||!dn.value)
@@ -356,8 +363,10 @@ metalType.addEventListener('change', ()=>{
 
 let pdfDoc = new jsPDF();
 
-function headerPdf() {
-
+function headerPdf(title) {
+    pdfDoc.addImage(document.querySelector('.pdfLogo'), 'PNG', 0, 5, 200, 20);
+    pdfDoc.setFontSize(14);
+    pdfDoc.text(5, 30, title);
 }
 
 function headerTable(h) {
@@ -396,11 +405,11 @@ function rowPdf(el,h) {
     
 }
 
-function totalPdf(caption, value, unit, h) {
+function totalPdf(caption, value, unit, x, y) {
+    pdfDoc.text(x, y, String(caption), {maxWidth:'27'});
     pdfDoc.setFont("FuturaPT-Medium");
-    pdfDoc.text(5, h, String(caption));
+    pdfDoc.text(x, y+10, value + " " + unit);
     pdfDoc.setFont("FuturaPT-Book");
-    pdfDoc.text(5, h+5, value + " " + unit);
 }
 
 function generatePdf() {
@@ -414,22 +423,24 @@ function generatePdf() {
 
     pdfDoc.setFontSize(14);
 
-    headerPdf();
+    headerPdf("Расчет аксессуаров для трубок K-FLEX");
 
     pdfDoc.setFontSize(8);
 
     let i = 0;
 
-    headerTable(10);
+    headerTable(33);
     for(i=0; i<itemsPosition.length; i++){
-        rowPdf(itemsPosition[i],20+i*17);
+        rowPdf(itemsPosition[i],47+i*12);
     }
-
-    totalPdf("Количество клея", getColumnSum("amountGlue").toFixed(2), " литров", 40 + itemsPosition.length*17);
-    totalPdf("Количество очистителя", getColumnSum("amountCleaner").toFixed(2), " литров", 50 + itemsPosition.length*17);
-    totalPdf("Количество ленты для продольных швов", getColumnSum("amountTapeLongitudinal").toFixed(2), " метров", 60 + itemsPosition.length*17);
-    totalPdf("Количество ленты для поперечных швов", getColumnSum("amountTapeCross").toFixed(2), " метров", 70 + itemsPosition.length*17);
-    totalPdf("Количество покрытия самоклеющегося", getColumnSum("amountSelfAdhesive").toFixed(2), " м²", 80 + itemsPosition.length*17);
+    pdfDoc.setFontSize(14);
+    pdfDoc.text(5, 50 + itemsPosition.length*17, "Итого вам понадобиться:");
+    pdfDoc.setFontSize(8);
+    totalPdf("Количество клея", getColumnSum("amountGlue").toFixed(2), " литров", 5, 60 + itemsPosition.length*17);
+    totalPdf("Количество очистителя", getColumnSum("amountCleaner").toFixed(2), " литров", 35, 60 + itemsPosition.length*17);
+    totalPdf("Количество ленты для продольных швов", getColumnSum("amountTapeLongitudinal").toFixed(2), " метров", 65, 60 + itemsPosition.length*17);
+    totalPdf("Количество ленты для поперечных швов", getColumnSum("amountTapeCross").toFixed(2),  " метров", 95, 60 + itemsPosition.length*17);
+    totalPdf("Количество покрытия самоклеющегося", getColumnSum("amountSelfAdhesive").toFixed(2), " м²", 125, 60 + itemsPosition.length*17);
     //pdfDoc.text(160, 100+i*17, "Итого: " + document.querySelector('.products__total .num').textContent + "руб.") ;
 
 
